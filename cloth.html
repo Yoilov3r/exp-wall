@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e9e1d3" />
+    <meta
+      name="description"
+      content="基于 DOM 网格、弹簧阻尼和 matrix3d 的交互式布料物理实验。"
+    />
+    <title>Cloth / Surface</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/cloth/styles.css" />
+  </head>
+  <body>
+    <template id="page-template">
+      <main class="page-surface">
+        <div class="surface-grain" aria-hidden="true"></div>
+        <div class="surface-line surface-line--vertical" aria-hidden="true"></div>
+        <div class="surface-line surface-line--horizontal" aria-hidden="true"></div>
+
+        <header class="topbar">
+          <div class="wordmark">
+            <span class="wordmark-mark" aria-hidden="true"></span>
+            <span>CLOTH / SURFACE</span>
+          </div>
+          <nav class="nav-copy" aria-label="页面导航">
+            <span>研究</span>
+            <span>材料</span>
+            <span>联系</span>
+          </nav>
+          <div class="live-indicator">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>LIVE PHYSICS</span>
+          </div>
+        </header>
+
+        <section class="hero-copy">
+          <p class="eyebrow">INTERACTIVE MATERIAL / 2026</p>
+          <h1>
+            <span>WEBSITE</span>
+            <span class="heading-accent">AS CLOTH</span>
+          </h1>
+          <p class="lede">
+            把网页看作一块连续材料。鼠标移动的张力，会穿过文字、图片与界面边界。
+          </p>
+        </section>
+
+        <aside class="material-panel" aria-label="材料视觉">
+          <div class="material-image">
+            <img
+              src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&amp;fit=crop&amp;w=1200&amp;h=1500&amp;q=82"
+              alt=""
+              decoding="async"
+              fetchpriority="high"
+            />
+            <div class="material-image-shade" aria-hidden="true"></div>
+          </div>
+          <div class="panel-caption">
+            <span>MATERIAL STUDY 01</span>
+            <span>ELASTIC / WOVEN</span>
+          </div>
+        </aside>
+
+        <div class="pressure-badge" aria-hidden="true">
+          <span class="pressure-ring"></span>
+          <span class="pressure-cross pressure-cross--x"></span>
+          <span class="pressure-cross pressure-cross--y"></span>
+        </div>
+
+        <section class="bottom-deck">
+          <div class="metric">
+            <span class="metric-label">DOM MESH</span>
+            <strong class="mesh-readout">18 × 12</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">SURFACE</span>
+            <strong>SPRING / DAMPED</strong>
+          </div>
+          <div class="cta-copy">
+            <span>开始实验</span>
+            <span class="cta-arrow" aria-hidden="true">↗</span>
+          </div>
+        </section>
+
+        <div class="corner-index" aria-hidden="true">
+          <span>NO CANVAS</span>
+          <span>REAL DOM</span>
+        </div>
+      </main>
+    </template>
+
+    <div id="app">
+      <div class="page-source" id="page-source"></div>
+      <div class="cloth-root" id="cloth-root"></div>
+
+      <div class="interaction-layer" id="interaction-layer">
+        <button
+          class="interactive-zone interactive-zone--brand"
+          data-hover="brand"
+          data-pulse="0.72"
+          type="button"
+          aria-label="重置布料表面"
+        ></button>
+        <button
+          class="interactive-zone interactive-zone--nav-one"
+          data-hover="nav"
+          data-pulse="0.42"
+          type="button"
+          aria-label="研究"
+        ></button>
+        <button
+          class="interactive-zone interactive-zone--nav-two"
+          data-hover="nav"
+          data-pulse="0.42"
+          type="button"
+          aria-label="材料"
+        ></button>
+        <button
+          class="interactive-zone interactive-zone--nav-three"
+          data-hover="nav"
+          data-pulse="0.42"
+          type="button"
+          aria-label="联系"
+        ></button>
+        <button
+          class="interactive-zone interactive-zone--cta"
+          data-hover="cta"
+          data-pulse="1"
+          type="button"
+          aria-label="开始实验"
+        ></button>
+      </div>
+
+      <div class="cloth-cursor" id="cloth-cursor" aria-hidden="true">
+        <span class="cursor-ring"></span>
+        <span class="cursor-core"></span>
+      </div>
+
+      <div class="startup-shutter" id="startup-shutter" aria-hidden="true"></div>
+    </div>
+
+    <script type="module" src="/src/cloth/main.js"></script>
+  </body>
+</html>

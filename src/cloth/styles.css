@@ -1,0 +1,632 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap");
+
+:root {
+  --paper: #e9e1d3;
+  --paper-light: #f3ecdf;
+  --ink: #171915;
+  --ink-soft: #4b4d45;
+  --line: rgba(23, 25, 21, 0.22);
+  --accent: #df4b2f;
+  --teal: #35685f;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+body.cloth-mode,
+body.cloth-mode button {
+  cursor: none;
+}
+
+#app {
+  position: relative;
+  isolation: isolate;
+}
+
+.page-source {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-surface {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--ink);
+  background-color: var(--paper);
+}
+
+.surface-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(23, 25, 21, 0.032) 0,
+      rgba(23, 25, 21, 0.032) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.18) 0,
+      rgba(255, 255, 255, 0.18) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.surface-line {
+  position: absolute;
+  z-index: 1;
+  background: var(--line);
+  pointer-events: none;
+}
+
+.surface-line--vertical {
+  top: 0;
+  bottom: 0;
+  left: 43.25%;
+  width: 1px;
+}
+
+.surface-line--horizontal {
+  right: 0;
+  left: 0;
+  top: 56%;
+  height: 1px;
+}
+
+.topbar {
+  position: absolute;
+  z-index: 4;
+  top: 2.8rem;
+  right: 3.4rem;
+  left: 3.4rem;
+  display: flex;
+  align-items: center;
+  min-height: 2.4rem;
+  font-family: "DM Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 500;
+}
+
+.wordmark-mark {
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--paper);
+}
+
+.nav-copy {
+  display: flex;
+  gap: 2.4rem;
+  margin-left: auto;
+  margin-right: 10.5rem;
+  color: var(--ink-soft);
+}
+
+.live-indicator {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--teal);
+}
+
+.live-dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(53, 104, 95, 0.12);
+}
+
+.hero-copy {
+  position: absolute;
+  z-index: 3;
+  top: 24%;
+  left: 5.4rem;
+  width: 50rem;
+}
+
+.eyebrow,
+.metric-label {
+  margin: 0;
+  font-family: "DM Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--teal);
+}
+
+.eyebrow::before {
+  width: 2.4rem;
+  height: 1px;
+  content: "";
+  background: currentColor;
+}
+
+.hero-copy h1 {
+  margin: 1.4rem 0 1.5rem;
+  font-size: 7.2rem;
+  font-weight: 700;
+  line-height: 0.81;
+  letter-spacing: -0.028em;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 span {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero-copy h1 .heading-accent {
+  color: var(--accent);
+}
+
+.lede {
+  width: 25rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.material-panel {
+  position: absolute;
+  z-index: 2;
+  top: 17%;
+  right: 5.4rem;
+  width: min(25vw, 24rem);
+  min-width: 18rem;
+  height: min(61vh, 40rem);
+  min-height: 28rem;
+  padding: 0.65rem;
+  border: 1px solid var(--ink);
+  background: rgba(243, 236, 223, 0.5);
+}
+
+.material-image {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 2.2rem);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.material-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.16);
+  transform: scale(1.035);
+}
+
+.material-image-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 50%, rgba(23, 25, 21, 0.44) 100%),
+    linear-gradient(115deg, rgba(223, 75, 47, 0.3), transparent 62%);
+  mix-blend-mode: multiply;
+}
+
+.panel-caption {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 2.2rem;
+  font-family: "DM Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.pressure-badge {
+  position: absolute;
+  z-index: 3;
+  right: 31.5rem;
+  bottom: 22%;
+  width: 6.8rem;
+  height: 6.8rem;
+  opacity: 0.76;
+}
+
+.pressure-ring {
+  position: absolute;
+  inset: 0.7rem;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+}
+
+.pressure-cross {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--ink);
+}
+
+.pressure-cross--x {
+  width: 100%;
+  height: 1px;
+  transform: translate(-50%, -50%);
+}
+
+.pressure-cross--y {
+  width: 1px;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom-deck {
+  position: absolute;
+  z-index: 4;
+  right: 3.4rem;
+  bottom: 2.8rem;
+  left: 3.4rem;
+  display: grid;
+  grid-template-columns: 14rem 17rem minmax(10rem, 1fr);
+  align-items: end;
+  gap: 2.5rem;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.metric-label {
+  color: var(--ink-soft);
+}
+
+.metric strong {
+  font-family: "DM Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.cta-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-self: end;
+  width: 11.5rem;
+  min-height: 3.3rem;
+  padding: 0 1.15rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+  font-size: 0.86rem;
+  font-weight: 700;
+  transition:
+    color 220ms ease,
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.cta-arrow {
+  font-family: "DM Mono", monospace;
+  font-size: 1.1rem;
+}
+
+.corner-index {
+  position: absolute;
+  z-index: 3;
+  right: 3.4rem;
+  bottom: 8.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  color: rgba(23, 25, 21, 0.5);
+  font-family: "DM Mono", monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.11em;
+}
+
+.cloth-root {
+  position: fixed;
+  z-index: 3;
+  inset: 0;
+  overflow: hidden;
+  contain: strict;
+  pointer-events: none;
+}
+
+.cloth-cell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  contain: layout style paint;
+  transform-origin: 0 0;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.cloth-cell::after {
+  position: absolute;
+  z-index: 8;
+  inset: -1px;
+  content: "";
+  opacity: var(--shade, 0);
+  background: #10120f;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.page-clone {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.interaction-layer {
+  position: fixed;
+  z-index: 6;
+  inset: 0;
+  pointer-events: none;
+}
+
+.interactive-zone {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.interactive-zone:focus-visible {
+  border: 1px solid var(--accent);
+  outline: 2px solid rgba(223, 75, 47, 0.2);
+  outline-offset: 3px;
+}
+
+.interactive-zone--brand {
+  top: 2.2rem;
+  left: 3.1rem;
+  width: 15rem;
+  height: 3.6rem;
+}
+
+.interactive-zone--nav-one {
+  top: 2.2rem;
+  right: 18.9rem;
+  width: 4rem;
+  height: 3.6rem;
+}
+
+.interactive-zone--nav-two {
+  top: 2.2rem;
+  right: 13.3rem;
+  width: 4rem;
+  height: 3.6rem;
+}
+
+.interactive-zone--nav-three {
+  top: 2.2rem;
+  right: 7.7rem;
+  width: 4rem;
+  height: 3.6rem;
+}
+
+.interactive-zone--cta {
+  right: 3.2rem;
+  bottom: 2.2rem;
+  width: 12rem;
+  height: 4.5rem;
+}
+
+.cloth-root[data-hover="nav"] .nav-copy span {
+  color: var(--accent);
+}
+
+.cloth-root[data-hover="cta"] .cta-copy {
+  color: var(--paper-light);
+  background: var(--ink);
+  transform: translateY(-2px);
+}
+
+.cloth-root[data-hover="brand"] .wordmark-mark {
+  transform: scale(1.35);
+}
+
+.wordmark-mark {
+  transition: transform 180ms ease;
+}
+
+.cloth-cursor {
+  position: fixed;
+  z-index: 12;
+  top: 0;
+  left: 0;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-top: -2.2rem;
+  margin-left: -2.2rem;
+  pointer-events: none;
+}
+
+.cursor-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(223, 75, 47, 0.72);
+  border-radius: 50%;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.cursor-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+}
+
+.startup-shutter {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  background: var(--ink);
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+
+.static-mode .cloth-root,
+.static-mode .interaction-layer,
+.static-mode .cloth-cursor,
+.static-mode .startup-shutter {
+  display: none;
+}
+
+.static-mode .page-source {
+  position: relative;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.static-mode .page-surface {
+  position: relative;
+  height: auto;
+  min-height: 100vh;
+}
+
+.static-mode {
+  cursor: auto;
+}
+
+@media (max-width: 1180px) {
+  .hero-copy {
+    left: 4.8rem;
+  }
+
+  .hero-copy h1 {
+    font-size: 6rem;
+  }
+
+  .material-panel {
+    right: 4.8rem;
+  }
+
+  .pressure-badge {
+    right: 27rem;
+  }
+
+  .nav-copy {
+    gap: 1.8rem;
+  }
+
+  .interactive-zone--nav-one {
+    right: 17.4rem;
+  }
+
+  .interactive-zone--nav-two {
+    right: 12.4rem;
+  }
+
+  .interactive-zone--nav-three {
+    right: 7.4rem;
+  }
+}
+
+@media (max-height: 760px) {
+  .topbar {
+    top: 2rem;
+  }
+
+  .hero-copy {
+    top: 22%;
+  }
+
+  .hero-copy h1 {
+    font-size: 5.8rem;
+  }
+
+  .material-panel {
+    top: 14%;
+    height: 58vh;
+    min-height: 24rem;
+  }
+
+  .bottom-deck {
+    bottom: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
